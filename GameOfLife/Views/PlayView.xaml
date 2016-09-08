@@ -1,0 +1,30 @@
+﻿<Window
+        xmlns:GameOfLife="clr-namespace:GameOfLife"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        mc:Ignorable="d" x:Class="GameOfLife.Views.PlayView"
+        Title="Game of Life" SizeToContent="WidthAndHeight" Closing="Window_Closing_1">
+    <Window.Resources>
+        <GameOfLife:HighlighterConverter x:Key="myHighlighterConverter"/>
+    </Window.Resources>
+    <Grid x:Name="grid" >
+        <DataGrid HorizontalAlignment="Left" VerticalAlignment="Top" x:Name="Dg" ColumnWidth="20" RowHeight="20" ItemsSource="{Binding Field.DefaultView, Mode=OneWay}" >
+            <DataGrid.CellStyle>
+                <Style TargetType="{x:Type DataGridCell}">
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <MultiBinding Converter="{StaticResource myHighlighterConverter}" >
+                                <MultiBinding.Bindings>
+                                    <Binding RelativeSource="{RelativeSource Self}"></Binding>
+                                    <Binding Path="Row"></Binding>
+                                </MultiBinding.Bindings>
+                            </MultiBinding>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </DataGrid.CellStyle>
+        </DataGrid>
+    </Grid>
+</Window>
